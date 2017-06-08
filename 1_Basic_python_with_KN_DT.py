@@ -68,18 +68,6 @@ for k in k_val:
 print(k_score)
 
 
-# plot k_score and k_val
-import  matplotlib.pyplot as plt
-plt.plot(k_val,k_score)
-plt.xlabel('Values of k')
-plt.ylabel('cross validity accuracy')
-plt.show()
 
-
-# after ploting ghaph k_val Vs K-score
-# we at value of k=20 we get maximum accuracy so put n_neighbors =20
-KNN = KNeighborsClassifier(n_neighbors =20)
-score = cross_val_score(KNN, x, y, cv=10,scoring = 'accuracy').mean()
-print(score)   # got 0.98 accuracy
 
 
