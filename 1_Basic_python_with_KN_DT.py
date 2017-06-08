@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.cross_validation import train_test_split
+import seaborn as sn
 iris = load_iris()
 
 #print(iris)
@@ -13,7 +14,9 @@ print(iris.target[0])
  x = iris.data  
  y = iris.target 
 
-x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.7)
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.5)
+x_train.hist(bins=10)
 ##############################################################################
 # using decission Tree
 from sklearn.tree import DecisionTreeClassifier
@@ -44,5 +47,27 @@ print(accuracy_score(y_test,pred_KN))
 # got 0.96 accuracy if test_size = 0.5 in train_test_split
 # got 0.9714 accuracy if test_size = 0.7 in train_test_split
 
+##############################################################################
+# using k-fold cross validation
+from sklearn.cross_validation import cross_val_score
+clf_KN = KNeighborsClassifier(n_neighbors=5)
+score = cross_val_score(clf_KN,x,y,cv=10,scoring='accuracy')
+print(score)
+print(score.mean())
 
-# with 
+
+# using optimal k values for cross validation
+k_val =range(1,31)
+k_score= []
+
+for k in k_val:
+    KNN_k = KNeighborsClassifier(n_neighbors=k)
+    score = cross_val_score(KNN_k, x, y, cv=10, scoring='accuracy')
+    k_score.append(score.mean())
+
+print(k_score)
+
+
+
+
+
